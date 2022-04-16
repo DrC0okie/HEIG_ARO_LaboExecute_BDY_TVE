@@ -3,32 +3,52 @@ main.o:     file format elf32-littlearm
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000066  00000000  00000000  00000034  2**1
+  0 .text         00000086  00000000  00000000  00000034  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000000  00000000  00000000  0000009a  2**0
+  1 .data         00000000  00000000  00000000  000000ba  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000000  00000000  00000000  0000009a  2**0
+  2 .bss          00000000  00000000  00000000  000000ba  2**0
                   ALLOC
-  3 .ARM.attributes 00000014  00000000  00000000  0000009a  2**0
+  3 .ARM.attributes 00000014  00000000  00000000  000000ba  2**0
                   CONTENTS, READONLY
 
 Disassembly of section .text:
 
-00000000 <start>:
-   0:	2005      	movs	r0, #5
-   2:	2102      	movs	r1, #2
-   4:	1842      	adds	r2, r0, r1
-   6:	1d13      	adds	r3, r2, #4
-   8:	e01a      	b.n	40 <unconditionnal>
+00000000 <ADR_saut_1-0x20>:
+   0:	2500      	movs	r5, #0
+   2:	802e      	strh	r6, [r5, #0]
+   4:	3502      	adds	r5, #2
+   6:	f000 f80b 	bl	20 <ADR_saut_1>
 	...
 
-00000040 <unconditionnal>:
-  40:	2206      	movs	r2, #6
-  42:	1e53      	subs	r3, r2, #1
-  44:	d00c      	beq.n	60 <conditionnal>
+00000020 <ADR_saut_1>:
+  20:	802e      	strh	r6, [r5, #0]
+  22:	3502      	adds	r5, #2
+  24:	f000 f80c 	bl	40 <ADR_saut_2>
+  28:	3d02      	subs	r5, #2
+  2a:	882e      	ldrh	r6, [r5, #0]
+  2c:	1c37      	adds	r7, r6, #0
 	...
 
-00000060 <conditionnal>:
-  60:	2004      	movs	r0, #4
-  62:	2180      	movs	r1, #128	; 0x80
-  64:	e7cc      	b.n	0 <start>
+00000040 <ADR_saut_2>:
+  40:	802e      	strh	r6, [r5, #0]
+  42:	3502      	adds	r5, #2
+  44:	f000 f80c 	bl	60 <ADR_saut_3>
+  48:	3d02      	subs	r5, #2
+  4a:	882e      	ldrh	r6, [r5, #0]
+  4c:	1c37      	adds	r7, r6, #0
+	...
+
+00000060 <ADR_saut_3>:
+  60:	802e      	strh	r6, [r5, #0]
+  62:	3502      	adds	r5, #2
+  64:	f000 f80c 	bl	80 <ADR_saut_4>
+  68:	3d02      	subs	r5, #2
+  6a:	882e      	ldrh	r6, [r5, #0]
+  6c:	1c37      	adds	r7, r6, #0
+	...
+
+00000080 <ADR_saut_4>:
+  80:	3d02      	subs	r5, #2
+  82:	882e      	ldrh	r6, [r5, #0]
+  84:	1c37      	adds	r7, r6, #0

@@ -1,20 +1,62 @@
-start :
-mov r0, #5
-mov r1, #2
-add r2, r0, r1
-add r3, r2, #4
-B unconditionnal
+mov r5, #0 @ Initialisation de la pile a l'addresse 0
+@ Stocke LR dans la mémoire
+strh r6, [r5, #0]
+@ Incrémente SP
+add r5, #2
+BL ADR_saut_1
 
-.org 0x40
-unconditionnal :
-mov r2, #6
-sub r3, r2, #1
-BEQ conditionnal
+@ programme terminé
 
-.org 0x60
-conditionnal :
-mov r0, #4
-mov r1, #128
-B start
+.org 32
+ADR_saut_1:
+@ Stocke LR dans la mémoire
+strh r6, [r5, #0]
+@ Incrémente SP
+add r5, #2
+BL ADR_saut_2
+sub r5, #2
+ldrh r6, [r5, #0]
+mov r7, r6
 
+.org 64
+ADR_saut_2:
+@ Stocke LR dans la mémoire
+strh r6, [r5, #0]
+@ Incrémente SP
+add r5, #2
+BL ADR_saut_3
+sub r5, #2
+ldrh r6, [r5, #0]
+mov r7, r6
 
+.org 96
+ADR_saut_3:
+@ Stocke LR dans la mémoire
+strh r6, [r5, #0]
+@ Incrémente SP
+add r5, #2
+BL ADR_saut_4
+sub r5, #2
+ldrh r6, [r5, #0]
+mov r7, r6
+
+.org 128
+ADR_saut_4:
+sub r5, #2
+ldrh r6, [r5, #0]
+mov r7, r6
+
+@ mov r5, #0x0 @ Initialisation de la pile a l'addresse 0
+@ @ Stocke LR dans la mémoire
+@ strh r6, [r5, #0]
+@ @ Incrémente SP
+@ add r5, #2
+@ BL ADR_saut_2
+@ mov r1, #6
+
+@ .org 0x30
+@ ADR_saut_2:
+@ mov r0, #2
+@ sub r5, #2
+@ ldrh r6, [r5, #0]
+@ mov r7, r6
